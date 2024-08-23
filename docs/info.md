@@ -9,12 +9,15 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Explain how your project works
+This project "Crispy VGA" takes as input the output of a standard tiny tapeout VGA project.
+Crispy VGA then adds a programmable amount of random noise to the VGA signal and passes it through to the output.
+
 
 ## How to test
 
-Explain how to use your project
+Plug an existing tiny tapeout VGA project into the input of this design.
+Plug the output of this design into a standard VGA input monitor. 
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+You will need a VGA input monitor and a tiny tapeout ASIC with a working VGA design that follows the standard pinout.
