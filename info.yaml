@@ -23,34 +23,34 @@ project:
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 pinout:
   # Inputs
-  ui[0]: ""
-  ui[1]: ""
-  ui[2]: ""
-  ui[3]: ""
-  ui[4]: ""
-  ui[5]: ""
-  ui[6]: ""
-  ui[7]: ""
+  ui[0]: "Hopefully hsync vga input"
+  ui[1]: "Hopefully B[0] vga input"
+  ui[2]: "Hopefully G[0] vga input"
+  ui[3]: "Hopefully R[0] vga input"
+  ui[4]: "Hopefully vsync vga input"
+  ui[5]: "Hopefully B[1] vga input"
+  ui[6]: "Hopefully G[1] vga input"
+  ui[7]: "Hopefully R[1] vga input"
 
   # Outputs
-  uo[0]: ""
-  uo[1]: ""
-  uo[2]: ""
-  uo[3]: ""
-  uo[4]: ""
-  uo[5]: ""
-  uo[6]: ""
-  uo[7]: ""
+  uo[0]: "hsync vga output"
+  uo[1]: "B[0] vga output"
+  uo[2]: "G[0] vga output"
+  uo[3]: "R[0] vga output"
+  uo[4]: "vsync vga output"
+  uo[5]: "B[1] vga output"
+  uo[6]: "G[1] vga output"
+  uo[7]: "R[1] vga output"
 
   # Bidirectional pins
-  uio[0]: ""
-  uio[1]: ""
-  uio[2]: ""
-  uio[3]: ""
-  uio[4]: ""
-  uio[5]: ""
-  uio[6]: ""
-  uio[7]: ""
+  uio[0]: "Crispy input bit 0"
+  uio[1]: "Crispy input bit 1"
+  uio[2]: "Crispy input bit 2"
+  uio[3]: "Crispy input bit 3"
+  uio[4]: "Crispy input bit 4"
+  uio[5]: "Crispy input bit 5"
+  uio[6]: "Crispy input bit 6"
+  uio[7]: "Crispy input bit 7"
 
 # Do not change!
 yaml_version: 6
