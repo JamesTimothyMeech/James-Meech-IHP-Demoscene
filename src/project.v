@@ -56,9 +56,9 @@ module tt_um_crispy_vga(
   
   always @(posedge vsync) begin
     if (~rst_n) begin
-      counter <= 0;
+      counter <= 10'b0000000000;
     end else begin
-      counter <= counter + 1;
+      counter <= counter + 1'b1;
     end
   end
   
