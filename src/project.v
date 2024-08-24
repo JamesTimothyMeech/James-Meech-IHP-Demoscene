@@ -28,6 +28,7 @@ module tt_um_crispy_vga(
 
   // TinyVGA PMOD
   assign uo_out = {hsync, B[0], G[0], R[0], vsync, B[1], G[1], R[1]};
+  assign video_active = rst_n;
 
   // Unused outputs assigned to 0.
   assign uio_out = 0;
