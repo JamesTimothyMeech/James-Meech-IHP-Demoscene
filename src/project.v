@@ -27,6 +27,14 @@ module tt_um_crispy_vga(
   wire [9:0] pix_y;
 
   // TinyVGA PMOD
+  assign hsync = ui_in[0];
+  assign B[0] = ui_in[1];
+  assign G[0] = ui_in[2];
+  assign R[0] = ui_in[3];
+  assign vsync = ui_in[4];
+  assign B[1] = ui_in[5];
+  assign G[1] = ui_in[6];
+  assign R[1] = ui_in[7];
   assign uo_out = {hsync, B[0], G[0], R[0], vsync, B[1], G[1], R[1]};
 
   // Unused outputs assigned to 0.
@@ -35,8 +43,6 @@ module tt_um_crispy_vga(
 
   // Suppress unused signals warning
   wire _unused_ok = &{ena};
-
-  reg [9:0] counter;
 
   reg [31:0] pcg_out = 32'h00000000;
   reg [31:0] xorshifted = 32'h00000000;
@@ -51,29 +57,8 @@ module tt_um_crispy_vga(
 		pcg_out = (xorshifted >> rot) | (xorshifted << ((-rot) & 31));
 	end
 
-  hvsync_generator hvsync_gen(
-    .clk(clk),
-    .reset(~rst_n),
-    .hsync(hsync),
-    .vsync(vsync),
-    .display_on(video_active),
-    .hpos(pix_x),
-    .vpos(pix_y)
-  );
-  
-  wire [9:0] moving_x = pix_x + counter + (ui_in & pcg_out[7:0]);
-  wire [9:0] noisy_pix_y = pix_y + (uio_in & pcg_out[7:0]); 
-
-  assign R = video_active ? {moving_x[5], noisy_pix_y[2]} : 2'b00;
-  assign G = video_active ? {moving_x[6], noisy_pix_y[2]} : 2'b00;
-  assign B = video_active ? {moving_x[7], noisy_pix_y[5]} : 2'b00;
-  
-  always @(posedge vsync) begin
-    if (~rst_n) begin
-      counter <= 0;
-    end else begin
-      counter <= counter + 1;
-    end
-  end
+  assign R = video_active ? (R & pcg_out[0:1]) : 2'b00;
+  assign G = video_active ? (G & pcg_out[2:3]) : 2'b00;
+  assign B = video_active ? (B & pcg_out[4:5]) : 2'b00;
   
 endmodule
