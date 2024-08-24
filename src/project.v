@@ -5,7 +5,7 @@
 
 `default_nettype none
 
-module tt_um_crispy_vga(
+module tt_um_vga_example(
   input  wire [7:0] ui_in,    // Dedicated inputs
   output wire [7:0] uo_out,   // Dedicated outputs
   input  wire [7:0] uio_in,   // IOs: Input path
@@ -36,8 +36,6 @@ module tt_um_crispy_vga(
   // Suppress unused signals warning
   wire _unused_ok = &{ena, ui_in, uio_in};
 
-  reg [9:0] counter;
-
   hvsync_generator hvsync_gen(
     .clk(clk),
     .reset(~rst_n),
@@ -48,18 +46,12 @@ module tt_um_crispy_vga(
     .vpos(pix_y)
   );
   
-  wire [9:0] moving_x = pix_x + counter;
+  wire [9:0] moving_x = pix_x;
 
   assign R = video_active ? {moving_x[5], pix_y[2]} : 2'b00;
   assign G = video_active ? {moving_x[6], pix_y[2]} : 2'b00;
   assign B = video_active ? {moving_x[7], pix_y[5]} : 2'b00;
   
-  always @(posedge vsync) begin
-    if (~rst_n) begin
-      counter <= 10'b0000000000;
-    end else begin
-      counter <= counter + 1'b1;
-    end
-  end
+
   
 endmodule
