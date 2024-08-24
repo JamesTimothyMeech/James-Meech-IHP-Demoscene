@@ -25,15 +25,18 @@ module tt_um_crispy_vga(
   reg video_active;
 
   // TinyVGA PMOD
-  assign hsync = ui_in[0];
-  assign B[0] = ui_in[1] + (B[0] + pcg_out[0]);
-  assign G[0] = ui_in[2] + (G[0] + pcg_out[1]);
-  assign R[0] = ui_in[3] + (R[0] + pcg_out[2]);
-  assign vsync = ui_in[4];
-  assign B[1] = ui_in[5] + (B[1] + pcg_out[3]);
-  assign G[1] = ui_in[6] + (G[1] + pcg_out[4]);
-  assign R[1] = ui_in[7] + (R[1] + pcg_out[5]);
-  assign uo_out = {hsync, B[0], G[0], R[0], vsync, B[1], G[1], R[1]};
+  always @ (posedge clk) 
+	begin
+    hsync = ui_in[0];
+    B[0] = ui_in[1] + (B[0] + pcg_out[0]);
+    G[0] = ui_in[2] + (G[0] + pcg_out[1]);
+    R[0] = ui_in[3] + (R[0] + pcg_out[2]);
+    vsync = ui_in[4];
+    B[1] = ui_in[5] + (B[1] + pcg_out[3]);
+    G[1] = ui_in[6] + (G[1] + pcg_out[4]);
+    R[1] = ui_in[7] + (R[1] + pcg_out[5]);
+    uo_out = {hsync, B[0], G[0], R[0], vsync, B[1], G[1], R[1]};
+  end
 
   // Unused outputs assigned to 0.
   assign uio_out = 0;
