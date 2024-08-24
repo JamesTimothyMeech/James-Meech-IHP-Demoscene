@@ -46,17 +46,17 @@ module tt_um_crispy_vga(
   // Suppress unused signals warning
   wire _unused_ok = &{ena, uio_in};
 
-  reg [15:0] pcg_out = 16'h0000;
-  reg [15:0] xorshifted = 16'h0000;
-	reg [15:0] rot = 16'h0000;
-	reg [31:0] state = 32'h00000000; 
+  reg [7:0] pcg_out = 8'h00;
+  reg [7:0] xorshifted = 8'h00;
+	reg [7:0] rot = 8'h00;
+	reg [15:0] state = 16'h0000; 
 
 	always @ (posedge clk) 
 	begin
-		state = state * 32'h5851f42d + 32'h14057b7e;
-		xorshifted = ((state >> 18) ^ state) >> 27;
-		rot = state >> 27;
-		pcg_out = (xorshifted >> rot) | (xorshifted << ((-rot) & 31));
+		state = state * 16'h5851 + 16'h1405;
+		xorshifted = ((state >> 2) ^ state) >> 3;
+		rot = state >> 3;
+		pcg_out = (xorshifted >> rot) | (xorshifted << ((-rot) & 15));
 	end
   
 endmodule
