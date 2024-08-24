@@ -53,9 +53,9 @@ module tt_um_crispy_vga(
 
 	always @ (posedge clk) 
 	begin
-		state = state * 32'h5851f42d4c957 + 32'h14057b7ef767814;
+		state = state * 32'h5851f42d + 32'h14057b7e;
 		xorshifted = ((state >> 18) ^ state) >> 27;
-		rot = state >> 59;
+		rot = state >> 27;
 		pcg_out = (xorshifted >> rot) | (xorshifted << ((-rot) & 31));
 	end
   
