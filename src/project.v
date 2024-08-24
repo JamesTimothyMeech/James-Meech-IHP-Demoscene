@@ -40,7 +40,7 @@ module tt_um_crispy_vga(
 
   hvsync_generator hvsync_gen(
     .clk(clk),
-    .reset(rst_n),
+    .reset(~rst_n),
     .hsync(hsync),
     .vsync(vsync),
     .display_on(video_active),

@@ -33,7 +33,7 @@ async def test_project(dut):
     dut.ui_in.value = 20
     dut.uio_in.value = 30
 
-    for i in range(0,100):
+    for i in range(0,300000):
         # Wait for one clock cycle to see the output values
         await ClockCycles(dut.clk, 1)
 
