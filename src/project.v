@@ -35,8 +35,9 @@ module tt_um_crispy_vga(
     B[1] = ui_in[5] + (B[1] + pcg_out[3]);
     G[1] = ui_in[6] + (G[1] + pcg_out[4]);
     R[1] = ui_in[7] + (R[1] + pcg_out[5]);
-    uo_out = {hsync, B[0], G[0], R[0], vsync, B[1], G[1], R[1]};
   end
+
+  assign uo_out = {hsync, B[0], G[0], R[0], vsync, B[1], G[1], R[1]};
 
   // Unused outputs assigned to 0.
   assign uio_out = 0;
