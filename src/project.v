@@ -17,12 +17,12 @@ module tt_um_crispy_vga(
 );
 
   // VGA signals
-  wire hsync;
-  wire vsync;
-  wire [1:0] R;
-  wire [1:0] G;
-  wire [1:0] B;
-  wire video_active;
+  reg hsync;
+  reg vsync;
+  reg [1:0] R;
+  reg [1:0] G;
+  reg [1:0] B;
+  reg video_active;
 
   // TinyVGA PMOD
   assign hsync = ui_in[0];
