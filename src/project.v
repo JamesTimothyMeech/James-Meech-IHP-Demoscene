@@ -35,10 +35,6 @@ module tt_um_crispy_vga(
   assign R[1] = ui_in[7] + (R[1] + pcg_out[5]);
   assign uo_out = {hsync, B[0], G[0], R[0], vsync, B[1], G[1], R[1]};
 
-  assign R = video_active ? (R & pcg_out[0:1]) : 2'b00;
-  assign G = video_active ? (G & pcg_out[2:3]) : 2'b00;
-  assign B = video_active ? (B & pcg_out[4:5]) : 2'b00;
-
   // Unused outputs assigned to 0.
   assign uio_out = 0;
   assign uio_oe  = 0;
