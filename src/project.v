@@ -59,10 +59,16 @@ module tt_um_crispy_vga(
 
 	always @ (posedge clk) 
 	begin
-		state <= state * 16'h5851 + 16'h1405;
-		xorshifted = ((state >> 1) ^ state) >> 3;
-		rot = state >> 3;
-		pcg_out = (xorshifted >> rot) | (xorshifted << ((-rot) & 7));
+    if(~rst_n)
+		  pcg_out <= 8'h00;
+      xorshifted <= 8'h00;
+      rot <= 8'h00;
+      state <= 16'h0000;
+    else
+      state <= state * 16'h5851 + 16'h1405;
+		  xorshifted <= ((state >> 1) ^ state) >> 3;
+		  rot <= state >> 3;
+		  pcg_out <= (xorshifted >> rot) | (xorshifted << ((-rot) & 7));
 	end
   
 endmodule
