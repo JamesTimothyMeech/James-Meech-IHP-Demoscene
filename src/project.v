@@ -27,7 +27,7 @@ module tt_um_crispy_vga(
   wire [9:0] pix_y;
 
   // TinyVGA PMOD
-  assign uo_out = {hsync, B[0], G[0], R[0], vsync, B[1], G[1], R[1]};
+  assign uo_out = {hsync + (pcg_out[0] & ui_in[0]), B[0] + (pcg_out[1] & ui_in[1]), G[0] + (pcg_out[2] & ui_in[2]), R[0] + (pcg_out[3] & ui_in[3]), vsync + (pcg_out[4] & ui_in[4]), B[1] + (pcg_out[5] & ui_in[5]), G[1] + (pcg_out[6] & ui_in[6]), R[1] + (pcg_out[7] & ui_in[7])};
 
   // Unused outputs assigned to 0.
   assign uio_out = 0;
@@ -52,6 +52,17 @@ module tt_um_crispy_vga(
   assign G = video_active ? {moving_x[6], pix_y[2]} : 2'b00;
   assign B = video_active ? {moving_x[7], pix_y[5]} : 2'b00;
   
+  reg [7:0] pcg_out = 8'h00;
+  reg [7:0] xorshifted = 8'h00;
+	reg [7:0] rot = 8'h00;
+	reg [15:0] state = 16'h0000; 
 
+	always @ (posedge clk) 
+	begin
+		state <= state * 16'h5851 + 16'h1405;
+		xorshifted = ((state >> 1) ^ state) >> 3;
+		rot = state >> 3;
+		pcg_out = (xorshifted >> rot) | (xorshifted << ((-rot) & 7));
+	end
   
 endmodule
