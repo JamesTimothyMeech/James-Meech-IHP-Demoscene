@@ -27,7 +27,7 @@ async def test_project(dut):
 
     dut._log.info("Test project behavior")
 
-    # Check bit zero of input can go high on its own
+    # Check bit zero of the input can go high on its own
     assert dut.uo_out.value == 0
     dut.ui_in[0].value = 1
     await ClockCycles(dut.clk, 1)
@@ -35,6 +35,7 @@ async def test_project(dut):
     dut.ui_in[0].value = 0
     await ClockCycles(dut.clk, 1)
 
+    # Check bit one of the input can go high on its own
     assert dut.uo_out.value == 0
     dut.ui_in[1].value = 1
     await ClockCycles(dut.clk, 1)
@@ -42,6 +43,7 @@ async def test_project(dut):
     dut.ui_in[1].value = 0
     await ClockCycles(dut.clk, 1)
 
+    # Check bit two of the input can go high on its own
     assert dut.uo_out.value == 0
     dut.ui_in[2].value = 1
     await ClockCycles(dut.clk, 1)
@@ -49,6 +51,7 @@ async def test_project(dut):
     dut.ui_in[2].value = 0
     await ClockCycles(dut.clk, 1)
 
+    # Check bit three of the input can go high on its own
     assert dut.uo_out.value == 0
     dut.ui_in[3].value = 1
     await ClockCycles(dut.clk, 1)
@@ -56,6 +59,7 @@ async def test_project(dut):
     dut.ui_in[3].value = 0
     await ClockCycles(dut.clk, 1)
 
+    # Check bit four of the input can go high on its own
     assert dut.uo_out.value == 0
     dut.ui_in[4].value = 1
     await ClockCycles(dut.clk, 1)
@@ -63,6 +67,7 @@ async def test_project(dut):
     dut.ui_in[4].value = 0
     await ClockCycles(dut.clk, 1)
 
+    # Check bit five of the input can go high on its own
     assert dut.uo_out.value == 0
     dut.ui_in[5].value = 1
     await ClockCycles(dut.clk, 1)
@@ -70,6 +75,7 @@ async def test_project(dut):
     dut.ui_in[5].value = 0
     await ClockCycles(dut.clk, 1)
 
+    # Check bit six of the  can go high on its own
     assert dut.uo_out.value == 0
     dut.ui_in[6].value = 1
     await ClockCycles(dut.clk, 1)
@@ -77,9 +83,77 @@ async def test_project(dut):
     dut.ui_in[6].value = 0
     await ClockCycles(dut.clk, 1)
 
+    # Check bit seven of the input can go high on its own
     assert dut.uo_out.value == 0
     dut.ui_in[7].value = 1
     await ClockCycles(dut.clk, 1)
     assert dut.uo_out.value == BinaryValue("10000000")
     dut.ui_in[7].value = 0
+    await ClockCycles(dut.clk, 1)
+
+    dut.ui_in.value = BinaryValue("11111111")
+    await ClockCycles(dut.clk, 1)
+
+    # Check bit zero of the input can go low on its own
+    assert dut.uo_out.value == BinaryValue("11111111")
+    dut.ui_in[0].value = 0
+    await ClockCycles(dut.clk, 1)
+    assert dut.uo_out.value == BinaryValue("11111110")
+    dut.ui_in[0].value = 1
+    await ClockCycles(dut.clk, 1)
+
+    # Check bit one of the input can go low on its own
+    assert dut.uo_out.value == BinaryValue("11111111")
+    dut.ui_in[1].value = 0
+    await ClockCycles(dut.clk, 1)
+    assert dut.uo_out.value == BinaryValue("11111101")
+    dut.ui_in[1].value = 1
+    await ClockCycles(dut.clk, 1)
+
+    # Check bit two of the input can go low on its own
+    assert dut.uo_out.value == BinaryValue("11111111")
+    dut.ui_in[2].value = 0
+    await ClockCycles(dut.clk, 1)
+    assert dut.uo_out.value == BinaryValue("11111011")
+    dut.ui_in[2].value = 1
+    await ClockCycles(dut.clk, 1)
+
+    # Check bit three of the input can go low on its own
+    assert dut.uo_out.value == BinaryValue("11111111")
+    dut.ui_in[3].value = 0
+    await ClockCycles(dut.clk, 1)
+    assert dut.uo_out.value == BinaryValue("11110111")
+    dut.ui_in[3].value = 1
+    await ClockCycles(dut.clk, 1)
+
+    # Check bit four of the input can go low on its own
+    assert dut.uo_out.value == BinaryValue("11111111")
+    dut.ui_in[4].value = 0
+    await ClockCycles(dut.clk, 1)
+    assert dut.uo_out.value == BinaryValue("11101111")
+    dut.ui_in[4].value = 1
+    await ClockCycles(dut.clk, 1)
+
+    # Check bit five of the input can go low on its own
+    assert dut.uo_out.value == BinaryValue("11111111")
+    dut.ui_in[5].value = 0
+    await ClockCycles(dut.clk, 1)
+    assert dut.uo_out.value == BinaryValue("11011111")
+    dut.ui_in[5].value = 1
+    await ClockCycles(dut.clk, 1)
+
+    # Check bit six of the input can go low on its own
+    assert dut.uo_out.value == BinaryValue("11111111")
+    dut.ui_in[6].value = 0
+    await ClockCycles(dut.clk, 1)
+    assert dut.uo_out.value == BinaryValue("10111111")
+    dut.ui_in[6].value = 1
+    await ClockCycles(dut.clk, 1)
+
+    # Check bit seven of the input can go low on its own
+    assert dut.uo_out.value == BinaryValue("11111111")
+    dut.ui_in[7].value = 0
+    await ClockCycles(dut.clk, 1)
+    assert dut.uo_out.value == BinaryValue("01111111")
+    dut.ui_in[7].value = 1
     await ClockCycles(dut.clk, 1)
