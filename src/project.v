@@ -35,7 +35,7 @@ module tt_um_crispy_vga(
   assign uio_oe  = 0;
 
   // Suppress unused signals warning
-  wire _unused_ok = &{ena, ui_in, uio_in};
+  wire _unused_ok = &{ena};
   
   reg [7:0] pcg_out = 8'h00;
   reg [7:0] xorshifted = 8'h00;
