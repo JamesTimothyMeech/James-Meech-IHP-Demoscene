@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Uri Shaked
+ * Copyright (c) 2024 James Meech
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -27,6 +27,7 @@ module tt_um_crispy_vga(
   wire [9:0] pix_y;
 
   // TinyVGA PMOD
+  assign ui_in = {hsync, B[0], G[0], R[0], vsync, B[1], G[1], R[1]};
   assign uo_out = {hsync + (pcg_out[0] & ui_in[0]), B[0] + (pcg_out[1] & ui_in[1]), G[0] + (pcg_out[2] & ui_in[2]), R[0] + (pcg_out[3] & ui_in[3]), vsync + (pcg_out[4] & ui_in[4]), B[1] + (pcg_out[5] & ui_in[5]), G[1] + (pcg_out[6] & ui_in[6]), R[1] + (pcg_out[7] & ui_in[7])};
 
   // Unused outputs assigned to 0.
@@ -35,22 +36,6 @@ module tt_um_crispy_vga(
 
   // Suppress unused signals warning
   wire _unused_ok = &{ena, ui_in, uio_in};
-
-  hvsync_generator hvsync_gen(
-    .clk(clk),
-    .reset(~rst_n),
-    .hsync(hsync),
-    .vsync(vsync),
-    .display_on(video_active),
-    .hpos(pix_x),
-    .vpos(pix_y)
-  );
-  
-  wire [9:0] moving_x = pix_x;
-
-  assign R = video_active ? {moving_x[5], pix_y[2]} : 2'b00;
-  assign G = video_active ? {moving_x[6], pix_y[2]} : 2'b00;
-  assign B = video_active ? {moving_x[7], pix_y[5]} : 2'b00;
   
   reg [7:0] pcg_out = 8'h00;
   reg [7:0] xorshifted = 8'h00;
