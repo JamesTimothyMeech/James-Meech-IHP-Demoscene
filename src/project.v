@@ -32,8 +32,13 @@ module tt_um_crispy_vga(
   assign uio_out[7] = uio_in[6] + (pcg_out[7] & uio_in[5]);
 
   // Unused outputs assigned to 0.
-  assign uio_out = 0;
-  assign uio_oe  = 0;
+  assign uio_out[6] = 1'b0;
+  assign uio_out[5] = 1'b0;
+  assign uio_out[4] = 1'b0;
+  assign uio_out[3] = 1'b0;
+  assign uio_out[2] = 1'b0;
+  assign uio_out[1] = 1'b0;
+  assign uio_out[0] = 1'b0;
   assign uio_oe[7]  = 1'b1;
   assign uio_oe[6]  = 1'b0;
   assign uio_oe[5]  = 1'b0;
