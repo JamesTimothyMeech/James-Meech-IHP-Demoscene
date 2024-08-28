@@ -27,7 +27,7 @@ async def test_project(dut):
 
     dut._log.info("Test project behavior")
 
-    # Check bit zero of the input can go high on its own
+    # Check bit zero of the input can go high on its own for each of the eight VGA pins
     assert dut.uo_out.value == 0
     dut.ui_in[0].value = 1
     await ClockCycles(dut.clk, 1)
@@ -157,3 +157,15 @@ async def test_project(dut):
     assert dut.uo_out.value == BinaryValue("01111111")
     dut.ui_in[7].value = 1
     await ClockCycles(dut.clk, 1)
+    
+    # Check that the audio passthrough bit can go high and low on its own
+    assert dut.uio_out.value == BinaryValue("00000000")
+    dut.uio_in[6].value = 1
+    await ClockCycles(dut.clk, 1)
+    assert dut.uio_out.value == BinaryValue("10000000")
+    dut.uio_in[6].value = 0
+    await ClockCycles(dut.clk, 1)
+    assert dut.uio_out.value == BinaryValue("00000000")
+    
+    
+    
