@@ -28,11 +28,20 @@ module tt_um_crispy_vga(
 
   // TinyVGA PMOD
   assign  {hsync, B[0], G[0], R[0], vsync, B[1], G[1], R[1]} = ui_in;
-  assign uo_out = {hsync + (pcg_out[0] & uio_in[0]), B[0] + (pcg_out[1] & uio_in[1]), G[0] + (pcg_out[2] & uio_in[2]), R[0] + (pcg_out[3] & uio_in[3]), vsync + (pcg_out[4] & uio_in[4]), B[1] + (pcg_out[5] & uio_in[5]), G[1] + (pcg_out[6] & uio_in[6]), R[1] + (pcg_out[7] & uio_in[7])};
-
+  assign uo_out = {hsync + (pcg_out[0] & uio_in[0]), B[0] + (pcg_out[1] & uio_in[1]), G[0] + (pcg_out[2] & uio_in[2]), R[0] + (pcg_out[3] & uio_in[3]), vsync + (pcg_out[4] & uio_in[4]), B[1] + (pcg_out[5] & uio_in[1]), G[1] + (pcg_out[6] & uio_in[2]), R[1] + (pcg_out[7] & uio_in[3])};
+  assign uio_out[7] = uio_in[6] + (pcg_out[7] & uio_in[5])
+  
   // Unused outputs assigned to 0.
   assign uio_out = 0;
   assign uio_oe  = 0;
+  assign uio_oe[7]  = 1'b1;
+  assign uio_oe[6]  = 1'b0;
+  assign uio_oe[5]  = 1'b0;
+  assign uio_oe[4]  = 1'b0;
+  assign uio_oe[3]  = 1'b0;
+  assign uio_oe[2]  = 1'b0;
+  assign uio_oe[1]  = 1'b0;
+  assign uio_oe[0]  = 1'b0;
 
   // Suppress unused signals warning
   wire _unused_ok = &{ena};
