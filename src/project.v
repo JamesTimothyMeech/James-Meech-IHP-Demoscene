@@ -22,9 +22,6 @@ module tt_um_crispy_vga(
   wire [1:0] R;
   wire [1:0] G;
   wire [1:0] B;
-  wire video_active;
-  wire [9:0] pix_x;
-  wire [9:0] pix_y;
 
   // TinyVGA PMOD
   assign  {hsync, B[0], G[0], R[0], vsync, B[1], G[1], R[1]} = ui_in;
@@ -62,7 +59,7 @@ module tt_um_crispy_vga(
       state <= 16'd4356;
     end else begin
         state <= state * 16'd12829 + 16'd47989;
-        pcg_out = (((state >> ((state >> 13) + 3)) ^ state) * 62169) >> 8;
+        pcg_out <= (((state >> ((state >> 13) + 3)) ^ state) * 62169) >> 8;
     end
 	end
   
