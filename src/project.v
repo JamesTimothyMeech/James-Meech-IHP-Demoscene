@@ -39,6 +39,7 @@ module tt_um_crispy_vga(
   assign uio_out[2] = 1'b0;
   assign uio_out[1] = 1'b0;
   assign uio_out[0] = 1'b0;
+  // This one is the audio output
   assign uio_oe[7]  = 1'b1;
   assign uio_oe[6]  = 1'b0;
   assign uio_oe[5]  = 1'b0;
@@ -52,22 +53,16 @@ module tt_um_crispy_vga(
   wire _unused_ok = &{ena};
   
   reg [7:0] pcg_out = 8'h00;
-  reg [7:0] xorshifted = 8'h00;
-	reg [7:0] rot = 8'h00;
 	reg [15:0] state = 16'h0000; 
 
 	always @ (posedge clk) 
 	begin
     if(~rst_n) begin
 		  pcg_out <= 8'h00;
-      xorshifted <= 8'h00;
-      rot <= 8'h00;
-      state <= 16'h0000;
+      state <= 16'd4356;
     end else begin
-      state <= state * 16'h5851 + 16'h1405;
-		  xorshifted <= ((state >> 1) ^ state) >> 3;
-		  rot <= state >> 3;
-		  pcg_out <= (xorshifted >> rot) | (xorshifted << ((-rot) & 7));
+        state <= state * 16'd12829 + 16'd47989;
+        pcg_out = (((state >> ((state >> 13) + 3)) ^ state) * 62169) >> 8;
     end
 	end
   
